@@ -1,7 +1,9 @@
 var express = require('express'),
-    logger = require('morgan'),
-    mongoose = require('mongoose'),
-    app = express();
+  logger = require('morgan'),
+  mongoose = require('mongoose'),
+  app = express();
+
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public/'));
@@ -9,10 +11,15 @@ app.use(express.static(__dirname + '/public/'));
 app.engine('html', require('ejs').renderFile);
 
 app.get('*', function(req, res) {
-  res.render(__dirname+ '/public/index.html');
+  res.render(__dirname + '/public/index.html');
 });
 
-mongoose.connect('mongodb://localhost/mean');
+if (env === 'development') {
+  mongoose.connect('mongodb://localhost/mean');
+  console.log('you are in dev mode');
+} else {
+  mongoose.connect('mongodb://test:test@ds035310.mongolab.com:35310/mean');
+}
 
 var db = mongoose.connection;
 
@@ -31,13 +38,15 @@ var User = mongoose.model('User', userSchema);
 
 var mongoUser;
 
-User.findOne().exec(function(err, data) {
+User.find().exec(function(err, data) {
   mongoUser = data;
 
   console.log(mongoUser);
 });
 
-app.listen(1337);
+var port = process.env.PORT || 3030;
+
+app.listen(port);
 
 // grunt-express needs this
 module.exports = app;
