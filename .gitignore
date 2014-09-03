@@ -17,7 +17,12 @@ build/Release
 node_modules
 .lock-wscript
 
+lib
+public/libs/
+
 *.css
+
+public/js/build
 
 ### grunt ###
 # Grunt usually compiles files inside this directory
