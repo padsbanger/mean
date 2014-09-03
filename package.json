@@ -18,6 +18,7 @@
     "ejs": "*",
     "express": "4.x",
     "grunt-bower-task": "*",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-less": "*",
     "grunt-contrib-uglify": "~0.2.0",
