@@ -51,6 +51,12 @@
         <h4 class="subheader">List of all users</h4>
       </div>
     </div>
+    <div class="row">
+    <div class="large-12 columns">
+        <input type="text" ng-model="search" placeholder="Search users" />
+      </label>
+    </div>
+  </div>
     <div class="row centered-text">
       <table>
         <thead>
@@ -62,7 +68,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users">
+          <tr ng-repeat="user in users | filter:search">
             <td>{{user.id}}</td>
             <td>{{user.username}}</td>
             <td>{{user.role}}</td>
