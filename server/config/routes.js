@@ -1,4 +1,4 @@
-modules.exports = function(app) {
+module.exports = function(app) {
   app.get('*', function(req, res) {
     res.render(__dirname + '/public/index.html');
   });
