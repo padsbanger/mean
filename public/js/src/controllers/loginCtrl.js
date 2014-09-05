@@ -1,8 +1,9 @@
-mean.controller('loginCtrl', ['$scope',
-  function($scope) {
-
+mean.controller('loginCtrl', ['$scope', '$http',
+  function($scope, $http) {
     $scope.userLogin = function() {
-      console.log('it works');
+      $http.post('/login', {userName: user.login, password: user.password}).then(function(response) {
+        console.log(response.data);
+      });
     };
   }
 ]);

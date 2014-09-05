@@ -10,7 +10,7 @@ module.exports = function(config) {
   });
 
   var userSchema = mongoose.Schema({
-    userName: String
+    username: String
   });
 
   var User = mongoose.model('User', userSchema);
@@ -18,12 +18,13 @@ module.exports = function(config) {
   User.find({}).exec(function(err, collection) {
     if (collection.length === 0) {
       User.create({
-        userName: 'Strielok'
+        username: 'Strielok'
       }, {
-        userName: 'Artyom'
+        username: 'Artyom'
       }, {
-        userName: 'Michaszek'
+        username: 'Michaszek'
       });
+      console.log('No schema found, new created');
     }
   });
 
