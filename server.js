@@ -11,8 +11,6 @@ require('./server/config/express')(app, config);
 
 require('./server/config/db')(config);
 
-require('./server/config/routes')(app);
-
 var User = mongoose.model('User');
 
 passport.use(new LocalStrategy(
@@ -31,7 +29,7 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function(user, done) {
   if (user) {
-    done(null, user.id);
+    done(null, user._id);
   }
 });
 
@@ -46,6 +44,11 @@ passport.deserializeUser(function(id, done) {
     }
   });
 });
+
+
+require('./server/config/routes')(app);
+
+
 
 app.listen(config.port);
 
