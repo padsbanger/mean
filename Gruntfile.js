@@ -14,6 +14,8 @@ module.exports = function(grunt) {
     express: {
       myServer: {
         options: {
+          hostname: 'localhost',
+          port: '3000',
           server: path.resolve(__dirname, 'server'),
           bases: path.resolve(__dirname, 'public/'),
           livereload: true,

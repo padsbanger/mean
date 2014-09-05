@@ -1,12 +1,34 @@
 <section id="main-content">
-  <div class="row centered-text">
-    <div class="large-12 columns">
+  <div ng-controller="loginCtrl" class="row centered-text panel radius">
+    <div class="large-12 columns ">
+      <h2>Login</h2>
+    </div>
+    <form action="" name="user">
+      <div class="large-12 columns ">
+        <div class="large-12 columns">
+          <label>User login:
+            <input type="text" placeholder="" ng-model="user.login" />
+          </label>
+        </div>
+        <div class="large-12 columns">
+          <label>User password:
+            <input type="password" placeholder="" ng-model="user.password" />
+          </label>
+        </div>
+        <div class="large-12 columns">
+          <button ng-click="userLogin()">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row centered-text panel radius">
+    <div class="large-12 columns ">
       <h2>Users</h2>
-      <h4 class="subheader">List of all users</h4>
+      <h5 class="subheader">List of all users</h5>
     </div>
   </div>
   <div class="row">
-    <div class="large-12 columns">
+    <div class="large-12 columns panel">
       <input type="text" ng-model="search" placeholder="Search users" />
       </label>
     </div>
