@@ -1,10 +1,13 @@
 'use strict';
 
-mean.factory('UserService', function() {
-  return {
-    currentUser: undefined,
-    isAuthenticated: function() {
-      return !!this.currentUser;
-    }
-  };
-});
+mean.factory('UserService', ['$http', '$q',
+  function($http, $q) {
+
+    return {
+      currentUser: undefined,
+      isAuthenticated: function() {
+        return !!this.currentUser;
+      }
+    };
+  }
+]);

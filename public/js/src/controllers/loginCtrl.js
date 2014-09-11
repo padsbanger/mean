@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 mean.controller('loginCtrl', ['$scope', '$http','UserService',
   function($scope, $http, UserService) {
     $scope.isLogged = UserService;
@@ -15,8 +16,16 @@ mean.controller('loginCtrl', ['$scope', '$http',
           console.log('logged in!');
         } else {
           console.log('failed to log in!');
+=======
+mean.controller('loginCtrl', ['$scope', '$http', 'UserService', 'AuthService',
+  function($scope, $http, UserService, AuthService) {
+    $scope.isLogged = UserService;
+    $scope.userLogin = function() {
+      AuthService.userLogin($scope.user.username, $scope.user.password).then(function(success) {
+        if (success) {
+          console.log('ok');
+>>>>>>> a1a1460... User Service and Auth Service
         }
-        console.log(response.data);
       });
     };
   }

@@ -46,6 +46,30 @@ module.exports = function(passport) {
   // we are using named strategies since we have one for login and one for signup
   // by default, if there was no name, it would just be called 'local'
 
+  var authenticate = function(req, res, next) {
+    var auth = passport.authenticate('local', function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.send({
+          success: false
+        });
+      }
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.send({
+          success: true,
+          user: user
+        });
+      });
+    });
+    auth(req, res, next);
+  };
+
+
   passport.use(new LocalStrategy(
     function(username, password, done) {
       User.findOne({
