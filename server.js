@@ -2,16 +2,16 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var app      = express();
+var express = require('express');
+var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash    = require('connect-flash');
+var flash = require('connect-flash');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var morgan       = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var config = require('./server/config/config.js')(env);
 
@@ -28,7 +28,9 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 // required for passport
-app.use(session({ secret: 'abc' }));
+app.use(session({
+  secret: 'abc'
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -36,7 +38,8 @@ app.use(passport.session());
 require('./server/config/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(config.port);
-console.log('Runnin on ' + config.port);
+ app.listen(config.port, function() {
+  console.log('Runnin on ' + config.port);
+});
 
 module.exports = app;

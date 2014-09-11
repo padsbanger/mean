@@ -11,6 +11,20 @@ module.exports = function(grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+    express: {
+      options: {
+        port: 3001,
+        hostname: '*'
+      },
+      livereload: {
+        options: {
+          bases: 'public',
+          server: path.resolve('server'),
+          livereload: true,
+          serverreload: true,
+        }
+      }
+    },
     bower: {
       install: {
         targetDir: 'public/libs/',
@@ -116,7 +130,7 @@ module.exports = function(grunt) {
         },
       },
       html: {
-        files: ['public/*.html','public/views/*.html', 'public/views/**/*.html'],
+        files: ['public/*.html', 'public/views/*.html', 'public/views/**/*.html'],
         options: {
           livereload: {
             port: 9001
@@ -131,7 +145,8 @@ module.exports = function(grunt) {
       'bower',
       'concat',
       'less',
-      'watch'
+      'express',
+      'express-keepalive'
     ]);
   });
 
