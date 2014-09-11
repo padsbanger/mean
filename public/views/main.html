@@ -1,9 +1,10 @@
 <section id="main-content">
-  <div ng-controller="loginCtrl" class="row centered-text panel radius">
+  {{isLogged}}
+  <div ng-controller="loginCtrl" ng-hide="isLogged.isAuthenticated()" class="row centered-text panel radius">
     <div class="large-12 columns ">
       <h2>Login</h2>
     </div>
-    <form action="" name="user">
+    <form name="user">
       <div class="large-12 columns ">
         <div class="large-12 columns">
           <label>User login:
@@ -21,19 +22,19 @@
       </div>
     </form>
   </div>
-  <div class="row centered-text panel radius">
+  <div ng-show="user.isAuthenticated()" class="row centered-text panel radius">
     <div class="large-12 columns ">
       <h2>Users</h2>
       <h5 class="subheader">List of all users</h5>
     </div>
   </div>
-  <div class="row">
+  <div ng-show="user.isAuthenticated()" class="row">
     <div class="large-12 columns panel">
       <input type="text" ng-model="search" placeholder="Search users" />
       </label>
     </div>
   </div>
-  <div class="row centered-text">
+  <div ng-show="user.isAuthenticated()" class="row centered-text">
     <table>
       <thead>
         <tr>

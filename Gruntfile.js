@@ -11,18 +11,6 @@ module.exports = function(grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-    express: {
-      myServer: {
-        options: {
-          hostname: 'localhost',
-          port: '3000',
-          server: path.resolve(__dirname, 'server'),
-          bases: path.resolve(__dirname, 'public/'),
-          livereload: true,
-          serverreload: false
-        }
-      }
-    },
     bower: {
       install: {
         targetDir: 'public/libs/',
@@ -38,7 +26,7 @@ module.exports = function(grunt) {
         src: [
           'public/libs//angular/angular.min.js',
           'public/libs//angular-route/angular-route.min.js',
-          'public/libs//angular-animate/angular-animate.min.js',
+          'public/libs//angular-animate/angular-animate.js',
 
         ],
         dest: 'public/js/build/libs.js'
@@ -143,7 +131,6 @@ module.exports = function(grunt) {
       'bower',
       'concat',
       'less',
-      'express:myServer',
       'watch'
     ]);
   });
@@ -152,7 +139,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'bower',
       'concat',
-      'less',
+      'less'
     ]);
   });
 

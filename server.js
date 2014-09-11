@@ -1,56 +1,42 @@
-var express = require('express'),
-  mongoose = require('mongoose'),
-  app = express(),
-  env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
-  config = require('./server/config/config')[env],
-  passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy;
+// server.js
 
+// set up ======================================================================
+// get all the tools we need
+var express  = require('express');
+var app      = express();
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
 
-require('./server/config/express')(app, config);
+var config = require('./server/config/config.js')(env);
 
-require('./server/config/db')(config);
+// configuration ===============================================================
+mongoose.connect(config.db); // connect to our database
 
-var User = mongoose.model('User');
+require('./server/config/passport')(passport); // pass passport for configuration
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({
-      username: username
-    }).exec(function(err, user) {
-      if (user) {
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    });
-  }
-));
+// set up our express application
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
 
-passport.serializeUser(function(user, done) {
-  if (user) {
-    done(null, user._id);
-  }
-});
+// required for passport
+app.use(session({ secret: 'abc' }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-passport.deserializeUser(function(id, done) {
-  User.findOne({
-    _id: id
-  }).exec(function(err, user) {
-    if (user) {
-      return done(null, user);
-    } else {
-      return done(null, false);
-    }
-  });
-});
+// routes ======================================================================
+require('./server/config/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-
-require('./server/config/routes')(app);
-
-
-
+// launch ======================================================================
 app.listen(config.port);
+console.log('Runnin on ' + config.port);
 
-// grunt-express needs this
 module.exports = app;
